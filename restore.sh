@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/opt/homebrew/bin/bash
 
 device_disable_bbupdate="iPad2,3" # Disable baseband update for this device. You can also change this to your device if needed.
 ipsw_openssh=1 # OpenSSH will be added to custom IPSW if set to 1. (8.4.1 daibutsu and 6.1.3 p0sixspwn only)
@@ -47,7 +47,7 @@ clean_and_exit() {
     clean
 }
 
-bash_version=$(/usr/bin/env bash -c 'echo ${BASH_VERSINFO[0]}')
+bash_version=$(/opt/homebrew/bin/bash -c 'echo ${BASH_VERSINFO[0]}')
 if (( bash_version < 5 )); then
     error "Your bash version ($bash_version) is too old. Install a newer version of bash to continue." \
     "* For macOS users, install bash, libimobiledevice, and libirecovery from Homebrew or MacPorts" \
@@ -776,7 +776,7 @@ device_enter_mode() {
             fi
             $scp -P 2222 ${sendfiles[@]} root@127.0.0.1:/tmp
             if [[ $? == 0 ]]; then
-                $ssh -p 2222 root@127.0.0.1 "bash /tmp/kloaders" &
+                $ssh -p 2222 root@127.0.0.1 "/opt/homebrew/bin/bash /tmp/kloaders" &
             else
                 warn "Failed to connect to device via USB SSH."
                 if [[ $platform == "linux" ]]; then
@@ -804,7 +804,7 @@ device_enter_mode() {
                 if [[ $? != 0 ]]; then
                     error "Failed to connect to device via SSH, cannot continue."
                 fi
-                $ssh root@$IPAddress "bash /tmp/kloaders" &
+                $ssh root@$IPAddress "/opt/homebrew/bin/bash /tmp/kloaders" &
             fi
 
             local attempt=1
@@ -1375,7 +1375,7 @@ ipsw_prepare_jailbreak() {
         if [[ $platform == "windows" ]]; then
             ipsw+="2"
         fi
-        echo '#!/bin/bash' > reboot.sh
+        echo '#!/opt/homebrew/bin/bash' > reboot.sh
         echo "mount_hfs /dev/disk0s1s1 /mnt1; mount_hfs /dev/disk0s1s2 /mnt2" >> reboot.sh
         echo "nvram -d boot-partition; nvram -d boot-ramdisk" >> reboot.sh
         echo "/usr/bin/haxx_overwrite -$device_model" >> reboot.sh
