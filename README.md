@@ -1,4 +1,10 @@
-# Legacy iOS Kit
+# Legacy iOS Kit using bash from homebrew
+
+This repo contains some small changes to use the last updated version of bash from homebrew. Since Apple Silicon, the default path where all the homebrew packages are installed is `/opt/homebrew`. 
+
+The default bash used by macOS is outdated, so when running the script from the official repo, you will get an error to update bash but on macOS you can't do that or even if you manage to change the default version, you will get some issues and the OS won't boot anymore.
+
+## A more detailed introduction to the script
 
 - (formerly iOS-OTA-Downgrader)
 - **A multi-purpose script to save SHSH blobs, downgrade/restore, and jailbreak supported legacy iOS devices**
